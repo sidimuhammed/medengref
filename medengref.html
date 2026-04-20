@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedEng Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #13161b;
+    --surface2: #1a1e25;
+    --border: #252a34;
+    --border2: #2e3440;
+    --accent: #00d4aa;
+    --accent2: #0099ff;
+    --accent3: #ff6b6b;
+    --accent4: #ffa94d;
+    --text: #e8eaf0;
+    --text2: #8892a4;
+    --text3: #4a5568;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* LAYOUT */
+  .app { display: flex; height: 100vh; overflow: hidden; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 20px 16px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  .search-wrap { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 12px;
+    outline: none;
+  }
+
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text3); }
+
+  .categories {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  .cat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    padding: 8px 16px 4px;
+    text-transform: uppercase;
+  }
+
+  .device-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .device-item:hover { background: var(--surface2); }
+  .device-item.active { background: var(--surface2); border-left-color: var(--accent); }
+
+  .device-item .icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+  .device-item .name { font-size: 12px; color: var(--text); flex: 1; line-height: 1.3; }
+  .device-item .cls {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .cls-I    { background: rgba(0,212,170,0.1); color: var(--accent); }
+  .cls-IIa  { background: rgba(0,153,255,0.1); color: var(--accent2); }
+  .cls-IIb  { background: rgba(255,169,77,0.1); color: var(--accent4); }
+  .cls-III  { background: rgba(255,107,107,0.1); color: var(--accent3); }
+
+  .sidebar-footer {
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-add {
+    width: 100%;
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.25);
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-add:hover { background: rgba(0,212,170,0.15); }
+
+  /* MAIN */
+  .main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+  /* WELCOME */
+  .welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .welcome-icon { font-size: 48px; margin-bottom: 16px; }
+  .welcome h1 { font-size: 22px; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+  .welcome p { color: var(--text2); font-size: 13px; max-width: 380px; line-height: 1.6; }
+
+  /* DEVICE DETAIL */
+  .detail { display: none; padding: 28px 32px; max-width: 900px; }
+  .detail.visible { display: block; }
+
+  .detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .detail-icon {
+    font-size: 36px;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+
+  .detail-title { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .detail-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .badge-class-I   { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+  .badge-class-IIa { background: rgba(0,153,255,0.1); color: var(--accent2); border: 1px solid rgba(0,153,255,0.2); }
+  .badge-class-IIb { background: rgba(255,169,77,0.1); color: var(--accent4); border: 1px solid rgba(255,169,77,0.2); }
+  .badge-class-III { background: rgba(255,107,107,0.1); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+  .badge-std  { background: rgba(255,255,255,0.04); color: var(--text2); border: 1px solid var(--border2); }
+
+  .detail-header-actions { margin-left: auto; display: flex; gap: 8px; }
+
+  .btn-edit, .btn-delete {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: var(--sans);
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.15s;
+  }
+
+  .btn-edit:hover { border-color: var(--accent2); color: var(--accent2); }
+  .btn-delete:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 700px) { .info-grid { grid-template-columns: 1fr; } }
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+
+  .info-card.full { grid-column: 1 / -1; }
+  .info-card.danger { border-left: 3px solid var(--accent3); }
+  .info-card.warning { border-left: 3px solid var(--accent4); }
+  .info-card.success { border-left: 3px solid var(--accent); }
+
+  .info-card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .info-card-value {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .param-list { list-style: none; }
+  .param-list li {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .param-list li:last-child { border-bottom: none; }
+  .param-key { color: var(--text2); min-width: 130px; font-family: var(--mono); font-size: 11px; }
+  .param-val { color: var(--text); }
+
+  .alarm-list { list-style: none; }
+  .alarm-list li {
+    padding: 3px 0;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .alarm-list li::before { content: '▸'; color: var(--accent3); font-size: 10px; }
+
+  .maint-list { list-style: none; }
+  .maint-list li {
+    padding: 3px 0;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    gap: 8px;
+  }
+  .maint-freq {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    min-width: 50px;
+    padding-top: 1px;
+  }
+
+  .watchout-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    padding: 4px 0 0;
+    border-top: 1px solid rgba(255,107,107,0.15);
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    width: 600px;
+    max-width: 96vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+  }
+
+  .modal h2 { font-size: 16px; font-weight: 500; margin-bottom: 20px; color: var(--text); }
+
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 11px; color: var(--text2); font-family: var(--mono); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--accent); }
+  .form-row textarea { resize: vertical; min-height: 70px; }
+  .form-row select option { background: var(--surface2); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+  .btn-save {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 20px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-save:hover { opacity: 0.85; }
+
+  .btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    color: var(--text2);
+    font-family: var(--sans);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .btn-cancel:hover { border-color: var(--text2); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .empty-search { padding: 24px 16px; text-align: center; color: var(--text3); font-size: 12px; }
+
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    padding: 10px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    flex-wrap: wrap;
+  }
+  .stat-item span { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">MedEng · Reference</div>
+      <div class="logo-sub">v1.0 · offline</div>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search devices..." oninput="filterDevices()">
+    </div>
+    <div class="categories" id="sidebar-list"></div>
+    <div class="sidebar-footer">
+      <button class="btn-add" onclick="openModal()">+ Add device</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <!-- Welcome -->
+    <div class="welcome" id="welcome">
+      <div class="welcome-icon">🏥</div>
+      <h1>Medical Device Reference</h1>
+      <p>Select a device from the sidebar to view critical engineering information. Add your own devices with the + button below.</p>
+    </div>
+
+    <!-- Detail view -->
+    <div class="detail" id="detail"></div>
+  </main>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2 id="modal-title">Add new device</h2>
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Device name</label>
+        <input type="text" id="f-name" placeholder="e.g. ECG Machine">
+      </div>
+      <div class="form-row">
+        <label>Icon (emoji)</label>
+        <input type="text" id="f-icon" placeholder="e.g. ❤️" maxlength="4">
+      </div>
+      <div class="form-row">
+        <label>Device class</label>
+        <select id="f-class">
+          <option value="I">Class I</option>
+          <option value="IIa">Class IIa</option>
+          <option value="IIb">Class IIb</option>
+          <option value="III">Class III</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Category</label>
+        <input type="text" id="f-category" placeholder="e.g. Monitoring, Imaging...">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Working principle</label>
+      <textarea id="f-principle" placeholder="How does this device work?"></textarea>
+    </div>
+    <div class="form-row">
+      <label>Key parameters (one per line: Name: Value)</label>
+      <textarea id="f-params" placeholder="Heart rate: 60–100 bpm&#10;PR interval: 120–200 ms"></textarea>
+    </div>
+    <div class="form-row">
+      <label>Applicable standards (comma separated)</label>
+      <input type="text" id="f-standards" placeholder="IEC 60601-2-25, ISO 13485">
+    </div>
+    <div class="form-row">
+      <label>Critical alarms (one per line)</label>
+      <textarea id="f-alarms" placeholder="Lead-off&#10;Arrhythmia detected"></textarea>
+    </div>
+    <div class="form-row">
+      <label>Maintenance schedule (one per line: Frequency: Task)</label>
+      <textarea id="f-maint" placeholder="Daily: electrode check&#10;Annual: electrical safety test"></textarea>
+    </div>
+    <div class="form-row">
+      <label>Watch out for</label>
+      <textarea id="f-watchout" placeholder="Common pitfalls, failure modes, clinical risks..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveDevice()">Save device</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEFAULT_DEVICES = [
+  {
+    id: 1, icon: "❤️", name: "ECG Machine (12-lead)", deviceClass: "IIa", category: "Monitoring",
+    principle: "Measures electrical activity of the heart via 10 electrodes placed on limbs and chest. Each electrode pair forms a lead that views the heart from a different angle.",
+    params: [
+      ["Heart rate (normal)", "60–100 bpm"],
+      ["PR interval", "120–200 ms"],
+      ["QRS duration", "< 120 ms"],
+      ["QT interval", "< 440 ms (men), < 460 ms (women)"],
+      ["Amplitude accuracy", "±5% or ±40 µV"]
+    ],
+    standards: ["IEC 60601-2-25", "IEC 60601-1", "AHA/ACC guidelines"],
+    alarms: ["Lead-off / electrode disconnection", "Artifact / motion noise", "Arrhythmia detection (if monitored)", "Paper/storage full"],
+    maintenance: [["Daily", "Electrode & cable visual check"], ["Weekly", "Cable integrity & connector inspection"], ["Annual", "Electrical safety test per IEC 62353 + calibration"]],
+    watchout: "Limb lead reversal (especially LA/RA swap) is the most common setup error — it mimics dextrocardia. Motion artifact can mimic atrial fibrillation or ventricular tachycardia. Always ensure proper skin prep (abrasion + gel) to reduce electrode impedance below 5 kΩ."
+  },
+  {
+    id: 2, icon: "🫁", name: "Mechanical Ventilator", deviceClass: "III", category: "Life support",
+    principle: "Delivers controlled positive-pressure breaths to patients who cannot breathe adequately. Modes include volume control (VC), pressure control (PC), SIMV, CPAP, and BiPAP. The drive mechanism uses a piston, turbine, or compressed gas.",
+    params: [
+      ["Tidal volume (lung protective)", "6–8 mL/kg ideal body weight"],
+      ["Respiratory rate", "12–20 breaths/min"],
+      ["PEEP", "5–10 cmH2O (typical)"],
+      ["FiO2", "21–100%"],
+      ["I:E ratio", "1:2 (normal), 1:1 to 1:3 (adjustable)"],
+      ["Peak inspiratory pressure", "< 35 cmH2O (lung protective)"]
+    ],
+    standards: ["ISO 80601-2-12", "IEC 60601-1", "ISO 13485", "EN 794-3"],
+    alarms: ["High / low airway pressure", "Apnea / disconnect", "Low minute volume", "FiO2 deviation", "Low battery / mains failure", "Inspiratory time exceeded"],
+    maintenance: [["Per use", "Circuit & humidifier check, leak test"], ["Weekly", "Filter replacement, bacterial filter check"], ["Monthly", "Sensor calibration check"], ["Annual", "Full PM: flow/pressure accuracy, alarm function, electrical safety"]],
+    watchout: "Always perform a leak test before patient connection. High-pressure alarm = obstruction, biting, or coughing. Low-pressure alarm = circuit disconnect — check connections immediately. Autocycling (self-triggering) indicates leak or sensitivity too high. This is a Class III life-critical device: never service without full competency."
+  },
+  {
+    id: 3, icon: "🩸", name: "Pulse Oximeter (SpO2)", deviceClass: "IIa", category: "Monitoring",
+    principle: "Uses red (660 nm) and infrared (940 nm) light to differentiate oxyhaemoglobin (HbO2) from deoxyhaemoglobin (Hb) via photoplethysmography (PPG). The ratio of AC/DC components at each wavelength is used to calculate SpO2.",
+    params: [
+      ["Normal SpO2", "95–100%"],
+      ["Hypoxaemia threshold", "< 90%"],
+      ["Measurement accuracy", "±2% at 70–100% SpO2"],
+      ["Wavelengths", "660 nm (red) + 940 nm (IR)"],
+      ["Perfusion index", "> 0.3% for reliable reading"]
+    ],
+    standards: ["IEC 60601-2-61", "ISO 80601-2-61", "ISO 9919"],
+    alarms: ["Low SpO2", "Low perfusion index", "Probe-off / sensor disconnect", "Pulse not found"],
+    maintenance: [["Per patient", "Clean probe, inspect for damage"], ["Every 2–4 hours", "Check sensor site for pressure injury"], ["Annual", "Functional accuracy test with calibrated simulator"]],
+    watchout: "Carbon monoxide poisoning gives falsely NORMAL SpO2 — COHb absorbs at similar wavelengths to HbO2. Dark nail polish (especially blue/black) causes falsely low readings. Peripheral vasoconstriction (cold, shock, hypotension) reduces signal quality. Motion artifact is the most common cause of spurious alarms."
+  },
+  {
+    id: 4, icon: "💉", name: "Infusion Pump", deviceClass: "IIb", category: "Drug delivery",
+    principle: "Delivers precise volumes of fluid or medication intravenously. Volumetric pumps use peristaltic or cassette mechanisms; syringe pumps use a stepper motor to advance a plunger. Programmed by rate (mL/hr) and volume to be infused (VTBI).",
+    params: [
+      ["Flow rate accuracy", "±5% (typical)"],
+      ["Flow rate range", "0.1–1200 mL/hr (volumetric)"],
+      ["Occlusion pressure alarm", "300–900 mmHg (user settable)"],
+      ["KVO rate", "1–5 mL/hr"],
+      ["Bolus delivery", "Per prescription protocol"]
+    ],
+    standards: ["IEC 60601-2-24", "ISO 13485", "IEC 60601-1"],
+    alarms: ["Upstream / downstream occlusion", "Air-in-line", "Infusion complete / VTBI reached", "Door open", "Low battery", "Free flow detected"],
+    maintenance: [["Per use", "Air purge, free-flow protection check, set priming"], ["Weekly", "External cleaning, pump mechanism inspection"], ["Annual", "Flow rate accuracy test, occlusion alarm test, electrical safety"]],
+    watchout: "Free-flow is the most dangerous failure mode — a gravity bolus can deliver a lethal dose in seconds if the anti-free-flow clamp fails. 'Bolus on close' can deliver unintended dose when the door is opened/closed. Always use anti-free-flow administration sets. Drug library / DERS (dose error reduction software) must be kept up to date."
+  },
+  {
+    id: 5, icon: "🔋", name: "Defibrillator / AED", deviceClass: "III", category: "Life support",
+    principle: "Delivers a high-energy electrical shock (joules) across the chest to simultaneously depolarise a critical mass of myocardium, allowing the sinoatrial node to re-establish organised rhythm. Modern devices use biphasic truncated exponential (BTE) waveforms.",
+    params: [
+      ["Biphasic energy (first shock)", "120–200 J"],
+      ["Monophasic energy", "360 J"],
+      ["Charge time", "< 10 seconds (critical performance spec)"],
+      ["Internal resistance compensation", "Automatic (impedance-based)"],
+      ["Synchronisation accuracy", "± 10 ms (for cardioversion)"]
+    ],
+    standards: ["IEC 60601-2-4", "IEC 60601-1", "AAMI DF80"],
+    alarms: ["Low / critical battery", "Pad fault / high impedance", "ECG noise / artifact", "Charge ready", "Self-test failure"],
+    maintenance: [["Daily", "Self-test pass check, battery level, pads expiry"], ["Monthly", "Test shock into approved load, battery capacity"], ["Annual", "Full PM: energy accuracy, sync accuracy, ECG, electrical safety"]],
+    watchout: "Shout 'stand clear' and visually confirm no contact before discharge. Pad placement: sternal-apical or AP — correct positioning is critical. For patients with pacemakers, place pads at least 8 cm from the device. Synchronised cardioversion requires ECG sync mode — unsynchronised shock in VT can precipitate VF. Charge time > 10 s indicates battery or capacitor failure."
+  },
+  {
+    id: 6, icon: "🩺", name: "Non-invasive BP Monitor (NIBP)", deviceClass: "IIa", category: "Monitoring",
+    principle: "Uses the oscillometric method: the cuff inflates above systolic pressure and deflates gradually. Pressure oscillations in the cuff caused by arterial wall motion are detected; the point of maximum oscillation corresponds to MAP, with SBP and DBP derived algorithmically.",
+    params: [
+      ["Normal blood pressure", "< 120/80 mmHg"],
+      ["Hypertension stage 1", "130–139 / 80–89 mmHg"],
+      ["Mean arterial pressure (MAP)", "(SBP + 2×DBP) / 3"],
+      ["Cuff coverage", "80% of arm circumference"],
+      ["Accuracy requirement", "±5 mmHg mean, ±8 mmHg SD (ISO 81060-2)"]
+    ],
+    standards: ["IEC 60601-2-30", "ISO 81060-2", "AAMI SP10"],
+    alarms: ["Overpressure (> 300 mmHg)", "Weak pulse / low perfusion", "Motion artifact", "Measurement timeout", "Cuff leak"],
+    maintenance: [["Per use", "Check cuff condition and tubing"], ["Weekly", "Inspect connectors and tubing for cracks"], ["Annual", "Pressure accuracy calibration against traceable reference, leak test"]],
+    watchout: "Wrong cuff size is the #1 source of error: too small gives falsely HIGH reading; too large gives falsely LOW. Arrhythmia patients (e.g. AF) give unreliable oscillometric readings — consider invasive BP monitoring. Arm position matters: cuff must be at heart level. Allow 1–2 min between measurements to let venous congestion resolve."
+  },
+  {
+    id: 7, icon: "🌡️", name: "Temperature Monitor", deviceClass: "IIa", category: "Monitoring",
+    principle: "Thermistors (NTC resistors) or thermocouples measure resistance or EMF changes proportional to temperature. Site-dependent: oral, axillary, rectal, tympanic (infrared tympanic membrane), oesophageal, or skin surface probes.",
+    params: [
+      ["Normal core temperature", "36.5–37.5°C"],
+      ["Hyperthermia", "> 38.3°C"],
+      ["Fever", "> 38.0°C"],
+      ["Hypothermia", "< 35.0°C"],
+      ["Core measurement accuracy", "± 0.1°C"],
+      ["Axillary underestimate", "Approx. 0.5°C below core"]
+    ],
+    standards: ["IEC 60601-2-56", "ASTM E1112", "EN 12470"],
+    alarms: ["High temperature threshold", "Low temperature threshold", "Probe disconnection", "Out-of-range reading"],
+    maintenance: [["Per patient", "Use disposable probe covers; clean reusable probes per protocol"], ["Annual", "Accuracy verification against NIST-traceable reference thermometer"]],
+    watchout: "Tympanic probes are highly angle-sensitive — incorrect insertion angle can read up to 1°C low. Axillary readings underestimate core by ~0.5°C. Oesophageal is most accurate for core temp during surgery. Recent oral intake (hot/cold drinks) affects oral temperature for up to 15 minutes. Skin surface temperature is useful for trends, not absolute core values."
+  },
+  {
+    id: 8, icon: "🧠", name: "EEG Machine", deviceClass: "IIa", category: "Neurodiagnostics",
+    principle: "Records spontaneous postsynaptic electrical potentials from cortical neurones via scalp electrodes placed according to the 10–20 international system (19–256 channels). Signals are amplified (×10,000–100,000), filtered, and digitised.",
+    params: [
+      ["Signal amplitude", "10–100 µV (scalp)"],
+      ["Delta waves", "0.5–4 Hz (deep sleep, pathology)"],
+      ["Theta waves", "4–8 Hz (drowsiness, children)"],
+      ["Alpha waves", "8–13 Hz (relaxed, eyes closed)"],
+      ["Beta waves", "13–30 Hz (active, alert)"],
+      ["Gamma waves", "> 30 Hz (cognitive processing)"],
+      ["Electrode impedance target", "< 5 kΩ"]
+    ],
+    standards: ["IEC 60601-2-26", "IEC 60601-1", "IFCN guidelines"],
+    alarms: ["Electrode impedance > 5 kΩ", "Mains interference (50/60 Hz)", "Artifact detection (muscle, eye movement)", "Amplifier saturation"],
+    maintenance: [["Per use", "Electrode impedance check (< 5 kΩ), gel application"], ["Weekly", "Electrode cleaning, cable inspection"], ["Annual", "Gain accuracy, CMRR (> 100 dB), frequency response, noise floor, electrical safety"]],
+    watchout: "Electrode impedance is the most critical factor — high impedance = dominant noise. 50/60 Hz mains interference is the most common artifact; use notch filter with caution (can distort signal). Muscle (EMG) artifact mimics high-frequency brain activity and is the hardest to eliminate. Eye movement causes frontal artifact — instruct patient to keep still. Electrode gel bridges between adjacent electrodes short-circuits channels."
+  },
+  {
+    id: 9, icon: "💊", name: "Syringe Driver / PCA Pump", deviceClass: "IIb", category: "Drug delivery",
+    principle: "A stepper motor advances a lead screw against the syringe plunger at a programmed rate. PCA (patient-controlled analgesia) mode allows patient-triggered bolus doses within locked-out intervals to prevent overdose.",
+    params: [
+      ["Flow rate accuracy", "± 3–5%"],
+      ["Syringe diameter detection", "Automatic (critical for dose accuracy)"],
+      ["Bolus lockout interval", "Typically 5–30 min"],
+      ["Maximum hourly dose limit", "Set per prescription"],
+      ["Occlusion detection", "Pressure-based, adjustable threshold"]
+    ],
+    standards: ["IEC 60601-2-24", "ISO 13485", "IEC 60601-1"],
+    alarms: ["Upstream / downstream occlusion", "Syringe empty", "Syringe size mismatch", "Motor stall / mechanical fault", "Tamper alert", "Low battery"],
+    maintenance: [["Per use", "Confirm syringe brand/size, occlusion test, tamper seal"], ["Weekly", "Motor mechanism inspection"], ["Annual", "Flow rate accuracy verification, alarm function test, electrical safety"]],
+    watchout: "Syringe size mismatch is the most dangerous error — pump calculates flow from the declared syringe inner diameter. Even 1 mm error in diameter causes significant dose error. Always physically confirm syringe brand and size match pump settings. Tamper-evident seals are required for controlled drugs. When programming, always have a second person independently double-check rate, concentration, and drug name."
+  },
+  {
+    id: 10, icon: "📡", name: "Patient Monitor (multiparameter)", deviceClass: "IIb", category: "Monitoring",
+    principle: "Integrates multiple physiological parameters — ECG, SpO2, NIBP, temperature, respiration, invasive pressures — into a single display. Respiration rate is typically derived from thoracic impedance changes measured via ECG electrodes (impedance pneumography).",
+    params: [
+      ["ECG sampling rate", "500–1000 Hz"],
+      ["SpO2 sampling rate", "60–100 Hz"],
+      ["Display refresh rate", "≥ 25 Hz (waveforms)"],
+      ["NIBP accuracy", "±5 mmHg mean"],
+      ["Data storage", "24–72 hours typical trend storage"],
+      ["Connectivity", "HL7/DICOM to central station"]
+    ],
+    standards: ["IEC 60601-1", "IEC 60601-2-27 (ECG)", "IEC 60601-2-61 (SpO2)", "IEC 60601-2-30 (NIBP)", "IEC 60601-1-8 (alarms)"],
+    alarms: ["Per-parameter threshold alarms", "Central station connectivity loss", "Low battery / mains loss", "Sensor fault / disconnect", "Technical alarms (equipment malfunction)"],
+    maintenance: [["Daily", "Visual check, alarm test (at least 1 per parameter)"], ["Weekly", "Cable, lead, and sensor integrity check"], ["Annual", "Full electrical safety, calibration of all parameters, alarm function, network connectivity"]],
+    watchout: "Alarm fatigue is a major clinical safety issue — studies show >90% of alarms are false or clinically irrelevant. Always personalise alarm limits per patient; never leave factory defaults. Central station connectivity loss must trigger a local alarm. When transporting patients, confirm all parameters re-acquire correctly after reconnection. IEC 60601-1-8 governs alarm priorities: high (red), medium (yellow), low (cyan)."
+  }
+];
+
+let devices = [];
+let currentId = null;
+let editingId = null;
+
+function loadData() {
+  try {
+    const stored = localStorage.getItem('medeng_devices');
+    if (stored) {
+      devices = JSON.parse(stored);
+    } else {
+      devices = JSON.parse(JSON.stringify(DEFAULT_DEVICES));
+      saveData();
+    }
+  } catch(e) {
+    devices = JSON.parse(JSON.stringify(DEFAULT_DEVICES));
+  }
+}
+
+function saveData() {
+  try { localStorage.setItem('medeng_devices', JSON.stringify(devices)); } catch(e) {}
+}
+
+function nextId() {
+  return devices.length ? Math.max(...devices.map(d => d.id)) + 1 : 1;
+}
+
+function renderSidebar(filter = '') {
+  const list = document.getElementById('sidebar-list');
+  const cats = {};
+  devices.forEach(d => {
+    if (filter && !d.name.toLowerCase().includes(filter.toLowerCase()) &&
+        !d.category.toLowerCase().includes(filter.toLowerCase())) return;
+    if (!cats[d.category]) cats[d.category] = [];
+    cats[d.category].push(d);
+  });
+
+  let html = '';
+  const keys = Object.keys(cats).sort();
+  if (keys.length === 0) {
+    html = `<div class="empty-search">No devices found</div>`;
+  }
+  keys.forEach(cat => {
+    html += `<div class="cat-label">${cat}</div>`;
+    cats[cat].forEach(d => {
+      html += `<div class="device-item ${d.id === currentId ? 'active' : ''}" onclick="showDevice(${d.id})">
+        <span class="icon">${d.icon}</span>
+        <span class="name">${d.name}</span>
+        <span class="cls cls-${d.deviceClass}">${d.deviceClass}</span>
+      </div>`;
+    });
+  });
+  list.innerHTML = html;
+}
+
+function renderStats() {
+  const counts = {I:0, IIa:0, IIb:0, III:0};
+  devices.forEach(d => counts[d.deviceClass] = (counts[d.deviceClass]||0)+1);
+  const cats = new Set(devices.map(d => d.category)).size;
+  document.getElementById('stats-bar').innerHTML =
+    `<div>Total: <span>${devices.length}</span></div>` +
+    `<div>Categories: <span>${cats}</span></div>` +
+    `<div>Class I: <span>${counts.I}</span></div>` +
+    `<div>Class IIa: <span>${counts.IIa}</span></div>` +
+    `<div>Class IIb: <span>${counts.IIb}</span></div>` +
+    `<div>Class III: <span>${counts.III}</span></div>`;
+}
+
+function showDevice(id) {
+  currentId = id;
+  const d = devices.find(x => x.id === id);
+  if (!d) return;
+
+  document.getElementById('welcome').style.display = 'none';
+  const det = document.getElementById('detail');
+  det.classList.add('visible');
+
+  const classBadge = `badge badge-class-${d.deviceClass}`;
+  const stds = d.standards.map(s => `<span class="badge badge-std">${s}</span>`).join(' ');
+
+  const paramsHtml = d.params.map(([k,v]) =>
+    `<li><span class="param-key">${k}</span><span class="param-val">${v}</span></li>`
+  ).join('');
+
+  const alarmsHtml = d.alarms.map(a => `<li>${a}</li>`).join('');
+
+  const maintHtml = d.maintenance.map(([f, t]) =>
+    `<li><span class="maint-freq">${f}</span><span>${t}</span></li>`
+  ).join('');
+
+  det.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-icon">${d.icon}</div>
+      <div style="flex:1">
+        <div class="detail-title">${d.name}</div>
+        <div class="detail-meta">
+          <span class="${classBadge}">Class ${d.deviceClass}</span>
+          <span class="badge badge-std">${d.category}</span>
+          ${stds}
+        </div>
+      </div>
+      <div class="detail-header-actions">
+        <button class="btn-edit" onclick="openModal(${d.id})">Edit</button>
+        <button class="btn-delete" onclick="deleteDevice(${d.id})">Delete</button>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card full success">
+        <div class="info-card-label">Working principle</div>
+        <div class="info-card-value">${d.principle}</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-label">Key parameters</div>
+        <ul class="param-list">${paramsHtml}</ul>
+      </div>
+
+      <div class="info-card warning">
+        <div class="info-card-label">Critical alarms</div>
+        <ul class="alarm-list">${alarmsHtml}</ul>
+      </div>
+
+      <div class="info-card full">
+        <div class="info-card-label">Maintenance schedule</div>
+        <ul class="maint-list">${maintHtml}</ul>
+      </div>
+
+      <div class="info-card full danger">
+        <div class="info-card-label">Watch out for</div>
+        <div class="watchout-text">${d.watchout}</div>
+      </div>
+    </div>
+  `;
+
+  renderSidebar(document.getElementById('search').value);
+  renderStats();
+}
+
+function filterDevices() {
+  renderSidebar(document.getElementById('search').value);
+}
+
+function openModal(id = null) {
+  editingId = id;
+  const d = id ? devices.find(x => x.id === id) : null;
+  document.getElementById('modal-title').textContent = d ? 'Edit device' : 'Add new device';
+
+  document.getElementById('f-name').value = d ? d.name : '';
+  document.getElementById('f-icon').value = d ? d.icon : '';
+  document.getElementById('f-class').value = d ? d.deviceClass : 'IIa';
+  document.getElementById('f-category').value = d ? d.category : '';
+  document.getElementById('f-principle').value = d ? d.principle : '';
+  document.getElementById('f-params').value = d ? d.params.map(([k,v]) => `${k}: ${v}`).join('\n') : '';
+  document.getElementById('f-standards').value = d ? d.standards.join(', ') : '';
+  document.getElementById('f-alarms').value = d ? d.alarms.join('\n') : '';
+  document.getElementById('f-maint').value = d ? d.maintenance.map(([f,t]) => `${f}: ${t}`).join('\n') : '';
+  document.getElementById('f-watchout').value = d ? d.watchout : '';
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  editingId = null;
+}
+
+function saveDevice() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('Please enter a device name.'); return; }
+
+  const parseLines = (str, sep = ':') => str.split('\n').filter(l => l.trim()).map(l => {
+    const idx = l.indexOf(sep);
+    if (idx > -1) return [l.slice(0, idx).trim(), l.slice(idx+1).trim()];
+    return [l.trim(), ''];
+  });
+
+  const d = {
+    id: editingId || nextId(),
+    icon: document.getElementById('f-icon').value.trim() || '🔬',
+    name,
+    deviceClass: document.getElementById('f-class').value,
+    category: document.getElementById('f-category').value.trim() || 'General',
+    principle: document.getElementById('f-principle').value.trim(),
+    params: parseLines(document.getElementById('f-params').value),
+    standards: document.getElementById('f-standards').value.split(',').map(s => s.trim()).filter(Boolean),
+    alarms: document.getElementById('f-alarms').value.split('\n').map(s => s.trim()).filter(Boolean),
+    maintenance: parseLines(document.getElementById('f-maint').value),
+    watchout: document.getElementById('f-watchout').value.trim()
+  };
+
+  if (editingId) {
+    const idx = devices.findIndex(x => x.id === editingId);
+    devices[idx] = d;
+  } else {
+    devices.push(d);
+  }
+
+  saveData();
+  closeModal();
+  renderSidebar();
+  renderStats();
+  showDevice(d.id);
+}
+
+function deleteDevice(id) {
+  if (!confirm('Delete this device from your reference?')) return;
+  devices = devices.filter(x => x.id !== id);
+  saveData();
+  currentId = null;
+  document.getElementById('detail').classList.remove('visible');
+  document.getElementById('welcome').style.display = '';
+  renderSidebar();
+  renderStats();
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+loadData();
+renderSidebar();
+renderStats();
+</script>
+</body>
+</html>
