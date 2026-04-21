@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidi Mohamed · Medical Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+:root{--bg:#fafaf8;--surface:#fff;--surface2:#f4f4f1;--border:#e8e8e3;--border2:#d4d4cc;--text:#1a1a18;--text2:#5a5a54;--text3:#9a9a92;--accent:#1a6b5a;--al:#e8f4f0;--a2:#1a4a8a;--a2l:#e8eef8;--danger:#c0392b;--dl:#fdf0ee;--warn:#b8620a;--wl:#fdf4e8;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--r:12px;--rs:7px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,248,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;padding:0 20px;gap:4px;}
+.nlogo{font-family:var(--serif);font-size:17px;color:var(--text);text-decoration:none;margin-right:auto;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.nlogo span{color:var(--accent);}
+.nlinks{display:flex;gap:1px;flex-wrap:nowrap;overflow:hidden;}
+.nl{font-size:12px;color:var(--text2);padding:5px 10px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:var(--sans);white-space:nowrap;transition:all .15s;}
+.nl:hover{background:var(--surface2);color:var(--text);}
+.nl.active{background:var(--al);color:var(--accent);font-weight:500;}
+.nright{display:flex;align-items:center;gap:8px;margin-left:8px;flex-shrink:0;}
+.admin-btn{font-size:11px;padding:5px 12px;border-radius:var(--rs);cursor:pointer;font-family:var(--sans);border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all .15s;white-space:nowrap;}
+.admin-btn:hover{border-color:var(--accent);color:var(--accent);}
+.admin-btn.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+.hburg{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;border:none;background:none;}
+.hburg span{width:20px;height:2px;background:var(--text2);border-radius:2px;display:block;}
+.mmenu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 16px 16px;z-index:99;flex-direction:column;gap:2px;}
+.mmenu.open{display:flex;}
+.ml{padding:10px 14px;border-radius:var(--rs);font-size:14px;color:var(--text2);cursor:pointer;border:none;background:none;font-family:var(--sans);text-align:left;width:100%;}
+.ml:hover{background:var(--surface2);}
+.ml.active{background:var(--al);color:var(--accent);}
+.abanner{background:var(--accent);color:#fff;font-size:12px;text-align:center;padding:6px;font-family:var(--mono);display:none;}
+.abanner.show{display:block;}
+.page{display:none;animation:fi .2s ease;}
+.page.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{max-width:860px;margin:0 auto;padding:52px 24px 36px;display:grid;grid-template-columns:1fr 170px;gap:36px;align-items:center;}
+.eyebrow{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.hname{font-family:var(--serif);font-size:42px;line-height:1.1;letter-spacing:-.02em;margin-bottom:8px;}
+.htitle{font-size:16px;color:var(--text2);font-weight:300;margin-bottom:14px;}
+.hbio{font-size:14px;color:var(--text2);line-height:1.8;max-width:460px;margin-bottom:22px;}
+.hact{display:flex;gap:8px;flex-wrap:wrap;}
+.bp{background:var(--accent);color:#fff;border:none;border-radius:var(--rs);padding:9px 20px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .15s;}
+.bp:hover{opacity:.85;}
+.bs{background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:var(--rs);padding:9px 20px;font-family:var(--sans);font-size:13px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;}
+.bs:hover{border-color:var(--accent);color:var(--accent);}
+.ava{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,var(--al),var(--a2l));border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:42px;color:var(--accent);overflow:hidden;cursor:pointer;flex-shrink:0;}
+.ava img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.sstrip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 24px;}
+.si{max-width:860px;margin:0 auto;}
+.slbl{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;}
+.scard{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px;}
+.sct{font-size:12px;font-weight:500;margin-bottom:2px;}
+.scl{font-size:11px;color:var(--text3);line-height:1.5;}
+.astrip{max-width:860px;margin:0 auto;padding:36px 24px;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:18px;}
+.abt{font-size:13px;font-weight:500;margin-bottom:8px;}
+.tl{list-style:none;}
+.tl li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.tl li:last-child{border-bottom:none;}
+.tly{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:36px;padding-top:2px;}
+.tlt{color:var(--text2);}
+.tlt strong{color:var(--text);font-weight:500;}
+.dp{display:flex;height:calc(100vh - 56px);overflow:hidden;}
+.dsb{width:236px;min-width:236px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.dsh{padding:12px 12px 8px;border-bottom:1px solid var(--border);}
+.dst{font-size:13px;font-weight:500;}
+.dss{font-size:11px;color:var(--text3);margin-top:1px;}
+.dsw{padding:7px 9px;border-bottom:1px solid var(--border);}
+.dsw input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:6px 8px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none;}
+.dsw input:focus{border-color:var(--accent);}
+.dlist{flex:1;overflow-y:auto;padding:4px 0;}
+.clbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:7px 11px 2px;}
+.ditem{display:flex;align-items:center;gap:7px;padding:7px 11px;cursor:pointer;border-left:2px solid transparent;transition:background .12s;}
+.ditem:hover{background:var(--surface2);}
+.ditem.active{background:var(--al);border-left-color:var(--accent);}
+.di{font-size:14px;width:16px;text-align:center;flex-shrink:0;}
+.dn{font-size:12px;flex:1;line-height:1.3;}
+.dc{font-family:var(--mono);font-size:9px;padding:2px 4px;border-radius:3px;flex-shrink:0;}
+.dcI{background:rgba(26,107,90,.08);color:var(--accent);}
+.dcIIa{background:rgba(26,74,138,.08);color:var(--a2);}
+.dcIIb{background:rgba(184,98,10,.08);color:var(--warn);}
+.dcIII{background:rgba(192,57,43,.08);color:var(--danger);}
+.dsf{padding:7px 9px;border-top:1px solid var(--border);}
+.badd{width:100%;background:var(--al);border:1px solid rgba(26,107,90,.2);border-radius:var(--rs);color:var(--accent);font-family:var(--sans);font-size:12px;font-weight:500;padding:7px;cursor:pointer;transition:background .15s;}
+.badd:hover{background:var(--accent);color:#fff;}
+.dm{flex:1;overflow-y:auto;}
+.dw{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;color:var(--text3);}
+.dd{display:none;padding:22px 26px;max-width:800px;}
+.dd.vis{display:block;}
+.ddh{display:flex;align-items:flex-start;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.ddic{width:46px;height:46px;border-radius:var(--r);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.ddt{font-size:18px;font-weight:600;margin-bottom:4px;}
+.dbg{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:4px;margin:2px 2px 0 0;}
+.bgI{background:rgba(26,107,90,.08);color:var(--accent);border:1px solid rgba(26,107,90,.15);}
+.bgIIa{background:rgba(26,74,138,.08);color:var(--a2);border:1px solid rgba(26,74,138,.15);}
+.bgIIb{background:rgba(184,98,10,.08);color:var(--warn);border:1px solid rgba(184,98,10,.15);}
+.bgIII{background:rgba(192,57,43,.08);color:var(--danger);border:1px solid rgba(192,57,43,.15);}
+.bgs{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+.dda{margin-left:auto;display:flex;gap:5px;}
+.be,.bdl{font-size:11px;padding:4px 9px;border-radius:var(--rs);cursor:pointer;font-family:var(--sans);border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .12s;}
+.be:hover{border-color:var(--a2);color:var(--a2);}
+.bdl:hover{border-color:var(--danger);color:var(--danger);}
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
+.ic{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;}
+.ic.full{grid-column:1/-1;}
+.ic.danger{border-left:3px solid var(--danger);}
+.ic.warn{border-left:3px solid var(--warn);}
+.ic.ok{border-left:3px solid var(--accent);}
+.icl{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.icv{font-size:13px;line-height:1.65;}
+.pl{list-style:none;}
+.pl li{display:flex;gap:7px;padding:3px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.pl li:last-child{border-bottom:none;}
+.pk{color:var(--text2);min-width:120px;font-family:var(--mono);font-size:10px;}
+.al{list-style:none;}
+.al li{padding:3px 0;font-size:12px;display:flex;align-items:center;gap:5px;}
+.al li::before{content:'▸';color:var(--danger);font-size:10px;}
+.ml2{list-style:none;}
+.ml2 li{padding:3px 0;font-size:12px;display:flex;gap:7px;}
+.mf{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:46px;padding-top:1px;}
+.tp{max-width:900px;margin:0 auto;padding:36px 24px;}
+.ph{font-family:var(--serif);font-size:28px;letter-spacing:-.02em;margin-bottom:5px;}
+.ps{font-size:14px;color:var(--text2);margin-bottom:24px;}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px;}
+.tc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;}
+.tci{font-size:20px;margin-bottom:7px;}
+.tct{font-size:14px;font-weight:500;margin-bottom:4px;}
+.tcd{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5;}
+.fi{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:7px 9px;font-family:var(--sans);font-size:13px;color:var(--text);outline:none;margin-bottom:6px;}
+.fi:focus{border-color:var(--accent);}
+.fs{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:7px 9px;font-family:var(--sans);font-size:13px;color:var(--text);outline:none;margin-bottom:6px;cursor:pointer;}
+.fs:focus{border-color:var(--accent);}
+.frow{display:flex;gap:6px;margin-bottom:6px;}
+.frow .fi{margin-bottom:0;}
+.rb{border-radius:var(--rs);padding:8px 11px;font-size:13px;font-weight:500;margin-top:4px;min-height:34px;}
+.rb-def{background:var(--surface2);color:var(--text2);}
+.rb-ok{background:var(--al);color:var(--accent);}
+.rb-warn{background:var(--wl);color:var(--warn);}
+.rb-bad{background:var(--dl);color:var(--danger);}
+.rb-info{background:var(--a2l);color:var(--a2);}
+.prp{max-width:900px;margin:0 auto;padding:36px 24px;}
+.prg{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px;margin-top:24px;}
+.prc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.pri{height:110px;background:linear-gradient(135deg,var(--al),var(--a2l));display:flex;align-items:center;justify-content:center;font-size:32px;}
+.prb{padding:13px;}
+.prtg{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:20px;background:var(--al);color:var(--accent);margin-bottom:6px;}
+.prt{font-size:14px;font-weight:500;margin-bottom:4px;}
+.prd{font-size:12px;color:var(--text2);line-height:1.6;}
+.pradd{background:var(--bg);border:1px dashed var(--border2);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:pointer;min-height:180px;color:var(--text3);font-size:13px;gap:6px;transition:border-color .15s;}
+.pradd:hover{border-color:var(--accent);color:var(--accent);}
+.jp{max-width:860px;margin:0 auto;padding:36px 24px;}
+.jtb{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center;}
+.jg{display:grid;gap:10px;}
+.jc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;}
+.jct{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;}
+.jcm{flex:1;}
+.jcti{font-size:14px;font-weight:500;margin-bottom:2px;}
+.jcd{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.jctg{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:20px;background:var(--al);color:var(--accent);margin-left:5px;}
+.jcb{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;}
+.cpg{max-width:860px;margin:0 auto;padding:36px 24px;}
+.ceg{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:10px;margin-top:24px;}
+.cec{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.cen{font-size:14px;font-weight:500;margin-bottom:3px;}
+.cei{font-size:12px;color:var(--text2);margin-bottom:5px;}
+.ces{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:20px;}
+.csd{background:var(--al);color:var(--accent);}
+.csp{background:var(--wl);color:var(--warn);}
+.csn{background:var(--surface2);color:var(--text3);}
+.ced{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:5px;}
+.cefl{font-size:11px;color:var(--a2);margin-top:4px;cursor:pointer;text-decoration:underline;display:block;word-break:break-all;}
+.ceadd{background:var(--bg);border:1px dashed var(--border2);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:pointer;min-height:140px;color:var(--text3);font-size:13px;gap:6px;transition:border-color .15s;}
+.ceadd:hover{border-color:var(--accent);color:var(--accent);}
+.cop{max-width:580px;margin:0 auto;padding:52px 24px;}
+.ccg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;}
+.cca{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-decoration:none;display:block;transition:border-color .15s;}
+.cca:hover{border-color:var(--accent);}
+.ccai{font-size:18px;margin-bottom:6px;}
+.ccal{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em;}
+.ccav{font-size:13px;font-weight:500;}
+.cnote{margin-top:20px;background:var(--al);border-radius:var(--r);padding:16px 18px;font-size:13px;color:var(--accent);line-height:1.7;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:14px 24px;text-align:center;font-size:11px;color:var(--text3);font-family:var(--mono);}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:16px;}
+.ov.open{display:flex;}
+.mo{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);width:540px;max-width:100%;max-height:90vh;overflow-y:auto;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.12);}
+.mo h2{font-size:15px;font-weight:500;margin-bottom:16px;}
+.fr{margin-bottom:10px;}
+.fr label{display:block;font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+.fr input,.fr select,.fr textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:7px 9px;font-family:var(--sans);font-size:13px;color:var(--text);outline:none;transition:border-color .12s;}
+.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:var(--accent);}
+.fr textarea{resize:vertical;min-height:62px;}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.ma{display:flex;gap:7px;justify-content:flex-end;margin-top:14px;}
+.bsave{background:var(--accent);color:#fff;border:none;border-radius:var(--rs);padding:7px 16px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;}
+.bsave:hover{opacity:.85;}
+.bcan{background:transparent;border:1px solid var(--border);border-radius:var(--rs);padding:7px 13px;color:var(--text2);font-family:var(--sans);font-size:13px;cursor:pointer;}
+.bcan:hover{border-color:var(--border2);}
+.pmo{background:var(--surface);border-radius:var(--r);padding:28px;text-align:center;width:300px;max-width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);}
+.pmo h2{font-size:17px;font-weight:500;margin-bottom:5px;}
+.pmo p{font-size:13px;color:var(--text2);margin-bottom:18px;}
+.pi{width:100%;text-align:center;font-size:20px;letter-spacing:.2em;font-family:var(--mono);background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:11px;outline:none;color:var(--text);}
+.pi:focus{border-color:var(--accent);}
+.perr{color:var(--danger);font-size:12px;margin-top:7px;min-height:16px;}
+.empty{text-align:center;padding:40px 24px;color:var(--text3);}
+.empty-icon{font-size:32px;margin-bottom:8px;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@media(max-width:700px){
+.nlinks{display:none;}.hburg{display:flex;}
+.hero{grid-template-columns:1fr;padding:28px 16px 24px;}.ava{display:none;}
+.agrid,.ccg,.fg2{grid-template-columns:1fr;}
+.ig{grid-template-columns:1fr;}
+.dp{flex-direction:column;height:auto;}
+.dsb{width:100%;min-width:unset;max-height:260px;}
+.dm{min-height:380px;}
+.tp,.prp,.jp,.cpg,.cop{padding:22px 16px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <span class="nlogo" onclick="showPage('home')">Sidi <span>Mohamed</span></span>
+  <div class="nlinks">
+    <button class="nl active" id="nl-home" onclick="showPage('home')">Home</button>
+    <button class="nl" id="nl-devices" onclick="showPage('devices')">Devices</button>
+    <button class="nl" id="nl-tools" onclick="showPage('tools')">Tools</button>
+    <button class="nl" id="nl-projects" onclick="showPage('projects')">Projects</button>
+    <button class="nl" id="nl-journal" onclick="showPage('journal')">Journal</button>
+    <button class="nl" id="nl-certs" onclick="showPage('certs')">Certifications</button>
+    <button class="nl" id="nl-contact" onclick="showPage('contact')">Contact</button>
+  </div>
+  <div class="nright">
+    <button class="admin-btn" id="admin-btn" onclick="handleAdmin()">Admin</button>
+    <div class="hburg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mmenu" id="mmenu">
+  <button class="ml active" id="ml-home" onclick="showPage('home');toggleMenu()">Home</button>
+  <button class="ml" id="ml-devices" onclick="showPage('devices');toggleMenu()">Devices</button>
+  <button class="ml" id="ml-tools" onclick="showPage('tools');toggleMenu()">Tools</button>
+  <button class="ml" id="ml-projects" onclick="showPage('projects');toggleMenu()">Projects</button>
+  <button class="ml" id="ml-journal" onclick="showPage('journal');toggleMenu()">Journal</button>
+  <button class="ml" id="ml-certs" onclick="showPage('certs');toggleMenu()">Certifications</button>
+  <button class="ml" id="ml-contact" onclick="showPage('contact');toggleMenu()">Contact</button>
+</div>
+<div class="abanner" id="abanner">🔐 Admin mode active &nbsp;|&nbsp; <span style="text-decoration:underline;cursor:pointer" onclick="openCreds()">Change credentials</span> &nbsp;|&nbsp; <span style="text-decoration:underline;cursor:pointer" onclick="logout()">Log out</span></div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Medical Engineer · Open to opportunities</div>
+      <h1 class="hname">Sidi Mohamed<br>Sidi el Mokhtar</h1>
+      <p class="htitle">Medical Engineer</p>
+      <p class="hbio">Fresh graduate in Medical Engineering with hands-on experience in medical device maintenance, biomedical instrumentation, and quality systems. Passionate about bridging engineering and clinical practice to improve patient outcomes.</p>
+      <div class="hact">
+        <button class="bp" onclick="showPage('projects')">View my work</button>
+        <button class="bs" onclick="showPage('contact')">Get in touch</button>
+        <button class="bs" id="cv-btn" onclick="handleCV()">Download CV</button>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--text3)" id="cv-hint"></div>
+    </div>
+    <div>
+      <div class="ava" id="ava" onclick="handleAva()">SM</div>
+      <div style="font-size:10px;color:var(--text3);text-align:center;margin-top:4px;display:none" id="ava-hint">Click to upload photo</div>
+      <input type="file" id="photo-in" accept="image/*" style="display:none" onchange="uploadPhoto(event)">
+      <input type="file" id="cv-in" accept=".pdf,.doc,.docx" style="display:none" onchange="uploadCV(event)">
+    </div>
+  </div>
+  <div class="sstrip">
+    <div class="si">
+      <div class="slbl">Technical skills</div>
+      <div class="sgrid">
+        <div class="scard"><div class="sct">Design & modelling</div><div class="scl">SolidWorks · AutoCAD · Fusion 360</div></div>
+        <div class="scard"><div class="sct">Software & data</div><div class="scl">MATLAB · Python · LabVIEW</div></div>
+        <div class="scard"><div class="sct">Standards</div><div class="scl">ISO 13485 · ISO 14971 · IEC 60601</div></div>
+        <div class="scard"><div class="sct">Devices</div><div class="scl">ECG · Ventilators · Patient monitors · Infusion pumps</div></div>
+        <div class="scard"><div class="sct">Lab & testing</div><div class="scl">Oscilloscopes · Multimeters · IEC 62353</div></div>
+        <div class="scard"><div class="sct">Languages</div><div class="scl">Arabic (native) · French · English (professional)</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="astrip">
+    <div class="slbl">Background</div>
+    <div class="agrid">
+      <div>
+        <div class="abt">Education & experience</div>
+        <ul class="tl">
+          <li><span class="tly">2025</span><span class="tlt"><strong>B.Sc. Medical Engineering</strong> — graduated</span></li>
+          <li><span class="tly">2024</span><span class="tlt"><strong>Internship</strong> — biomedical device maintenance & testing</span></li>
+          <li><span class="tly">2025</span><span class="tlt"><strong>Thesis</strong> — update with your thesis title</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="abt">Interests & goals</div>
+        <ul class="tl">
+          <li><span class="tly">R&D</span><span class="tlt">Medical device design and prototyping</span></li>
+          <li><span class="tly">QA</span><span class="tlt">Regulatory affairs & quality systems</span></li>
+          <li><span class="tly">CE</span><span class="tlt">Clinical engineering & hospital tech management</span></li>
+          <li><span class="tly">AI</span><span class="tlt">AI-assisted diagnostics and wearable health tech</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEVICES -->
+<div class="page" id="page-devices">
+  <div class="dp">
+    <aside class="dsb">
+      <div class="dsh"><div class="dst">Device reference</div><div class="dss" id="dcount"></div></div>
+      <div class="dsw"><input type="text" id="dsearch" placeholder="Search devices..." oninput="filterDevs()"></div>
+      <div class="dlist" id="dlist"></div>
+      <div class="dsf"><button class="badd" id="badd" onclick="openDevModal()" style="display:none">+ Add device</button></div>
+    </aside>
+    <div class="dm" id="dmain">
+      <div class="dw"><div style="font-size:34px;margin-bottom:9px">🏥</div><p style="font-size:14px;font-weight:500;color:var(--text2);margin-bottom:4px">Select a device</p><p style="font-size:13px">Critical engineering reference</p></div>
+      <div class="dd" id="ddet"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="page" id="page-tools">
+  <div class="tp">
+    <h1 class="ph">Engineering tools</h1>
+    <p class="ps">Quick-reference calculators for daily clinical engineering use.</p>
+    <div class="tg">
+      <div class="tc">
+        <div class="tci">⚗️</div><div class="tct">Unit converter</div>
+        <div class="tcd">Convert pressure, flow, and temperature units.</div>
+        <div class="frow"><input class="fi" type="number" id="cv-v" placeholder="Value" oninput="doConv()" style="margin-bottom:0"><select class="fs" id="cv-f" onchange="doConv()" style="margin-bottom:0"><optgroup label="Pressure"><option value="mmhg_kpa">mmHg→kPa</option><option value="kpa_mmhg">kPa→mmHg</option><option value="mmhg_cmh2o">mmHg→cmH2O</option><option value="cmh2o_mmhg">cmH2O→mmHg</option><option value="kpa_cmh2o">kPa→cmH2O</option></optgroup><optgroup label="Temperature"><option value="c_f">°C→°F</option><option value="f_c">°F→°C</option><option value="c_k">°C→K</option></optgroup><optgroup label="Flow"><option value="lmin_mls">L/min→mL/s</option><option value="mls_lmin">mL/s→L/min</option></optgroup></select></div>
+        <div class="rb rb-info" id="cv-r" style="margin-top:8px">Enter a value above</div>
+      </div>
+      <div class="tc">
+        <div class="tci">🫁</div><div class="tct">Ventilator calculator</div>
+        <div class="tcd">ARDSnet lung-protective settings from patient height and sex.</div>
+        <select class="fs" id="vt-sex"><option value="m">Male</option><option value="f">Female</option></select>
+        <input class="fi" type="number" id="vt-h" placeholder="Height (cm)" oninput="calcVent()">
+        <div class="rb rb-def" id="vt-r">Enter height above</div>
+      </div>
+      <div class="tc">
+        <div class="tci">🛡️</div><div class="tct">ISO 14971 risk matrix</div>
+        <div class="tcd">Calculate risk level from severity and probability.</div>
+        <input class="fi" type="text" id="rk-h" placeholder="Hazard description (optional)">
+        <select class="fs" id="rk-s" onchange="calcRisk()"><option value="">Severity...</option><option value="1">1 — Negligible</option><option value="2">2 — Minor</option><option value="3">3 — Serious</option><option value="4">4 — Critical</option><option value="5">5 — Catastrophic</option></select>
+        <select class="fs" id="rk-p" onchange="calcRisk()"><option value="">Probability...</option><option value="1">1 — Improbable</option><option value="2">2 — Remote</option><option value="3">3 — Occasional</option><option value="4">4 — Probable</option><option value="5">5 — Frequent</option></select>
+        <div class="rb rb-def" id="rk-r"></div>
+      </div>
+      <div class="tc">
+        <div class="tci">📐</div><div class="tct">BMI & BSA calculator</div>
+        <div class="tcd">Body mass index and body surface area (Mosteller).</div>
+        <div class="frow"><input class="fi" type="number" id="bmi-w" placeholder="Weight (kg)" oninput="calcBMI()" style="margin-bottom:0"><input class="fi" type="number" id="bmi-h" placeholder="Height (cm)" oninput="calcBMI()" style="margin-bottom:0"></div>
+        <div class="rb rb-def" id="bmi-r" style="margin-top:8px">Enter weight and height</div>
+      </div>
+      <div class="tc">
+        <div class="tci">⚡</div><div class="tct">IEC 62353 leakage checker</div>
+        <div class="tcd">Pass/fail check for measured leakage current values.</div>
+        <select class="fs" id="lk-t" onchange="checkLeak()"><option value="">Select measurement type...</option><option value="500">Earth leakage B/BF (500 µA)</option><option value="100">Patient leakage BF (100 µA)</option><option value="10">Patient leakage CF (10 µA)</option><option value="100b">Touch current B (100 µA)</option></select>
+        <input class="fi" type="number" id="lk-v" placeholder="Measured value (µA)" oninput="checkLeak()">
+        <div class="rb rb-def" id="lk-r"></div>
+      </div>
+      <div class="tc">
+        <div class="tci">💊</div><div class="tct">IV drug dose calculator</div>
+        <div class="tcd">Calculate infusion rate from dose, weight, and concentration.</div>
+        <input class="fi" type="number" id="dr-d" placeholder="Dose (µg/kg/min)" oninput="calcDrug()">
+        <div class="frow"><input class="fi" type="number" id="dr-w" placeholder="Weight (kg)" oninput="calcDrug()" style="margin-bottom:0"><input class="fi" type="number" id="dr-c" placeholder="Conc. (mg/mL)" oninput="calcDrug()" style="margin-bottom:0"></div>
+        <div class="rb rb-def" id="dr-r" style="margin-top:6px">Enter values above</div>
+      </div>
+      <div class="tc">
+        <div class="tci">🔋</div><div class="tct">Ohm's law calculator</div>
+        <div class="tcd">Enter any two values — get voltage, current, resistance, and power.</div>
+        <div class="frow"><input class="fi" type="number" id="oh-v" placeholder="V (volts)" oninput="calcOhm()" style="margin-bottom:0"><input class="fi" type="number" id="oh-i" placeholder="I (amps)" oninput="calcOhm()" style="margin-bottom:0"></div>
+        <div class="frow"><input class="fi" type="number" id="oh-r" placeholder="R (ohms)" oninput="calcOhm()" style="margin-bottom:0"><input class="fi" type="number" id="oh-p" placeholder="P (watts)" oninput="calcOhm()" style="margin-bottom:0"></div>
+        <div class="rb rb-def" id="oh-res" style="margin-top:6px">Enter any two values</div>
+      </div>
+      <div class="tc">
+        <div class="tci">🩺</div><div class="tct">Electrode impedance checker</div>
+        <div class="tcd">Check impedance against acceptable limits for ECG/EEG.</div>
+        <select class="fs" id="im-t" onchange="checkImp()"><option value="">Device type...</option><option value="5">EEG (limit: 5 kΩ)</option><option value="10">ECG diagnostic (limit: 10 kΩ)</option><option value="50">ECG monitoring (limit: 50 kΩ)</option></select>
+        <input class="fi" type="number" id="im-v" placeholder="Measured impedance (kΩ)" oninput="checkImp()">
+        <div class="rb rb-def" id="im-r"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="page-projects">
+  <div class="prp">
+    <h1 class="ph">Projects</h1>
+    <p class="ps">Engineering work, thesis research, and personal builds.</p>
+    <div class="prg" id="prg"></div>
+  </div>
+</div>
+
+<!-- JOURNAL -->
+<div class="page" id="page-journal">
+  <div class="jp">
+    <h1 class="ph">Learning journal</h1>
+    <p class="ps">Notes, reflections, and things learned on the job.</p>
+    <div class="jtb">
+      <button class="bp" id="btn-note" onclick="openNoteModal()" style="display:none">+ Add note</button>
+      <select class="fs" id="nfilter" onchange="renderJournal()" style="width:auto;min-width:130px;margin-bottom:0"><option value="">All categories</option><option>Device</option><option>Standard</option><option>Clinical</option><option>Career</option><option>Other</option></select>
+    </div>
+    <div class="jg" id="jg"></div>
+  </div>
+</div>
+
+<!-- CERTS -->
+<div class="page" id="page-certs">
+  <div class="cpg">
+    <h1 class="ph">Certifications</h1>
+    <p class="ps">Earned credentials and ongoing learning goals.</p>
+    <div class="ceg" id="ceg"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="cop">
+    <h1 class="ph">Get in touch</h1>
+    <p class="ps">Open to entry-level roles in medical device engineering, clinical engineering, and R&D.</p>
+    <div class="ccg">
+      <a class="cca" href="mailto:your@email.com"><div class="ccai">✉️</div><div class="ccal">Email</div><div class="ccav">your@email.com</div></a>
+      <a class="cca" href="https://linkedin.com/in/yourprofile" target="_blank"><div class="ccai">💼</div><div class="ccal">LinkedIn</div><div class="ccav">linkedin.com/in/yourprofile</div></a>
+      <a class="cca" href="#"><div class="ccai">📍</div><div class="ccal">Location</div><div class="ccav">Your city, Country</div></a>
+      <a class="cca" href="https://github.com/sidimuhammed" target="_blank"><div class="ccai">🐙</div><div class="ccal">GitHub</div><div class="ccav">github.com/sidimuhammed</div></a>
+    </div>
+    <div class="cnote">Open to opportunities in medical device engineering, clinical engineering, and R&D. Always happy to connect with engineers and clinicians in the field.</div>
+  </div>
+</div>
+
+<footer id="footer"></footer>
+
+<!-- PIN MODAL -->
+<div class="ov" id="pin-ov">
+  <div class="pmo">
+    <h2>Admin access</h2>
+    <p>Enter your username and PIN to unlock editing.</p>
+    <input class="fi" type="text" id="pu" placeholder="Username" style="text-align:center;margin-bottom:8px">
+    <input class="pi" type="password" id="pp" placeholder="••••••" maxlength="30" onkeydown="if(event.key==='Enter')doPin()">
+    <div class="perr" id="perr"></div>
+    <div style="display:flex;gap:7px;justify-content:center;margin-top:14px">
+      <button class="bcan" onclick="closePinOv()">Cancel</button>
+      <button class="bsave" onclick="doPin()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE CREDS -->
+<div class="ov" id="creds-ov">
+  <div class="mo" style="max-width:380px">
+    <h2>Change credentials</h2>
+    <div class="fr"><label>Current PIN</label><input type="password" id="cur-p"></div>
+    <div class="fr"><label>New username</label><input type="text" id="new-u"></div>
+    <div class="fr"><label>New PIN</label><input type="password" id="new-p"></div>
+    <div class="fr"><label>Confirm new PIN</label><input type="password" id="con-p"></div>
+    <div class="perr" id="cerr"></div>
+    <div class="ma"><button class="bcan" onclick="closeCreds()">Cancel</button><button class="bsave" onclick="saveCreds()">Save</button></div>
+  </div>
+</div>
+
+<!-- DEVICE MODAL -->
+<div class="ov" id="dev-ov">
+  <div class="mo">
+    <h2 id="dev-mt">Add device</h2>
+    <div class="fg2">
+      <div class="fr"><label>Device name</label><input type="text" id="f-nm"></div>
+      <div class="fr"><label>Icon (emoji)</label><input type="text" id="f-ic" maxlength="4"></div>
+      <div class="fr"><label>Class</label><select id="f-cl"><option value="I">Class I</option><option value="IIa" selected>Class IIa</option><option value="IIb">Class IIb</option><option value="III">Class III</option></select></div>
+      <div class="fr"><label>Category</label><input type="text" id="f-ca"></div>
+    </div>
+    <div class="fr"><label>Working principle</label><textarea id="f-pr"></textarea></div>
+    <div class="fr"><label>Key parameters (Name: Value per line)</label><textarea id="f-pa"></textarea></div>
+    <div class="fr"><label>Standards (comma separated)</label><input type="text" id="f-st"></div>
+    <div class="fr"><label>Critical alarms (one per line)</label><textarea id="f-al"></textarea></div>
+    <div class="fr"><label>Maintenance (Frequency: Task per line)</label><textarea id="f-ma"></textarea></div>
+    <div class="fr"><label>Watch out for</label><textarea id="f-wo"></textarea></div>
+    <div class="ma"><button class="bcan" onclick="closeDevOv()">Cancel</button><button class="bsave" onclick="saveDev()">Save</button></div>
+  </div>
+</div>
+
+<!-- NOTE MODAL -->
+<div class="ov" id="note-ov">
+  <div class="mo">
+    <h2 id="note-mt">Add note</h2>
+    <div class="fr"><label>Title</label><input type="text" id="n-t" placeholder="What did you learn?"></div>
+    <div class="fr"><label>Category</label><select id="n-c"><option>Device</option><option>Standard</option><option>Clinical</option><option>Career</option><option>Other</option></select></div>
+    <div class="fr"><label>Content</label><textarea id="n-b" style="min-height:110px" placeholder="Write your note here..."></textarea></div>
+    <div class="ma"><button class="bcan" onclick="closeNoteOv()">Cancel</button><button class="bsave" onclick="saveNote()">Save note</button></div>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="ov" id="proj-ov">
+  <div class="mo">
+    <h2 id="proj-mt">Add project</h2>
+    <div class="fr"><label>Title</label><input type="text" id="pj-t"></div>
+    <div class="fr"><label>Tag</label><input type="text" id="pj-tag" placeholder="e.g. Thesis, Internship, Personal project"></div>
+    <div class="fr"><label>Icon (emoji)</label><input type="text" id="pj-ic" maxlength="4" placeholder="🔬"></div>
+    <div class="fr"><label>Description</label><textarea id="pj-d" style="min-height:90px"></textarea></div>
+    <div class="fr"><label>Link (optional)</label><input type="text" id="pj-l" placeholder="https://..."></div>
+    <div class="ma"><button class="bcan" onclick="closeProjOv()">Cancel</button><button class="bsave" onclick="saveProj()">Save project</button></div>
+  </div>
+</div>
+
+<!-- CERT MODAL -->
+<div class="ov" id="cert-ov">
+  <div class="mo">
+    <h2 id="cert-mt">Add certification</h2>
+    <div class="fr"><label>Certificate name</label><input type="text" id="c-n"></div>
+    <div class="fr"><label>Issuing body</label><input type="text" id="c-i" placeholder="e.g. BSI, Coursera"></div>
+    <div class="fr"><label>Status</label><select id="c-s"><option value="done">Completed</option><option value="prog">In progress</option><option value="plan">Planned</option></select></div>
+    <div class="fr"><label>Date</label><input type="text" id="c-d" placeholder="e.g. June 2025"></div>
+    <div class="fr"><label>Upload certificate (PDF / image)</label><input type="file" id="c-f" accept=".pdf,image/*" style="background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:6px;width:100%"></div>
+    <div class="ma"><button class="bcan" onclick="closeCertOv()">Cancel</button><button class="bsave" onclick="saveCert()">Save</button></div>
+  </div>
+</div>
+
+<script>
+/* AUTH */
+const DU='sidimuhammed',DP='sidi2025';
+let isAdmin=false;
+const gu=()=>localStorage.getItem('me_u')||DU;
+const gp=()=>localStorage.getItem('me_p')||DP;
+function handleAdmin(){if(isAdmin){logout();return;}document.getElementById('pin-ov').classList.add('open');document.getElementById('pp').value='';document.getElementById('pu').value='';document.getElementById('perr').textContent='';setTimeout(()=>document.getElementById('pu').focus(),80);}
+function closePinOv(){document.getElementById('pin-ov').classList.remove('open');}
+function doPin(){const u=document.getElementById('pu').value.trim(),p=document.getElementById('pp').value;if(u===gu()&&p===gp()){isAdmin=true;closePinOv();applyAdmin();}else{document.getElementById('perr').textContent='Incorrect username or PIN.';document.getElementById('pp').value='';}}
+function logout(){isAdmin=false;applyAdmin();}
+function applyAdmin(){
+  const btn=document.getElementById('admin-btn');
+  btn.textContent=isAdmin?'Log out':'Admin';
+  btn.classList.toggle('on',isAdmin);
+  document.getElementById('abanner').classList.toggle('show',isAdmin);
+  document.getElementById('badd').style.display=isAdmin?'block':'none';
+  document.getElementById('btn-note').style.display=isAdmin?'inline-block':'none';
+  document.getElementById('ava-hint').style.display=isAdmin?'block':'none';
+  renderDevList();renderProj();renderJournal();renderCerts();
+}
+function openCreds(){document.getElementById('cur-p').value='';document.getElementById('new-u').value='';document.getElementById('new-p').value='';document.getElementById('con-p').value='';document.getElementById('cerr').textContent='';document.getElementById('creds-ov').classList.add('open');}
+function closeCreds(){document.getElementById('creds-ov').classList.remove('open');}
+function saveCreds(){const c=document.getElementById('cur-p').value,nu=document.getElementById('new-u').value.trim(),np=document.getElementById('new-p').value,cp=document.getElementById('con-p').value;if(c!==gp()){document.getElementById('cerr').textContent='Current PIN incorrect.';return;}if(!nu||!np){document.getElementById('cerr').textContent='All fields required.';return;}if(np!==cp){document.getElementById('cerr').textContent='New PINs do not match.';return;}localStorage.setItem('me_u',nu);localStorage.setItem('me_p',np);closeCreds();alert('Credentials updated!');}
+
+/* NAV */
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nl,.ml').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.getElementById('nl-'+p)?.classList.add('active');document.getElementById('ml-'+p)?.classList.add('active');if(p==='devices'){renderDevList();updateDCount();}if(p==='projects')renderProj();if(p==='journal')renderJournal();if(p==='certs')renderCerts();}
+function toggleMenu(){document.getElementById('mmenu').classList.toggle('open');}
+
+/* PHOTO & CV */
+function handleAva(){if(!isAdmin)return;document.getElementById('photo-in').click();}
+function uploadPhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const av=document.getElementById('ava');av.innerHTML=`<img src="${ev.target.result}" alt="photo">`;localStorage.setItem('me_photo',ev.target.result);};r.readAsDataURL(f);}
+function handleCV(){if(isAdmin){document.getElementById('cv-in').click();return;}const cv=localStorage.getItem('me_cv');if(cv){const a=document.createElement('a');a.href=cv;a.download='Sidi_Mohamed_CV.pdf';a.click();}else alert('No CV uploaded yet. Log in as admin to upload.');}
+function uploadCV(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{localStorage.setItem('me_cv',ev.target.result);localStorage.setItem('me_cv_n',f.name);document.getElementById('cv-hint').textContent='CV: '+f.name;alert('CV uploaded! Visitors can now download it.');};r.readAsDataURL(f);}
+function loadSaved(){const ph=localStorage.getItem('me_photo');if(ph){const av=document.getElementById('ava');av.innerHTML=`<img src="${ph}" alt="photo">`;}const cn=localStorage.getItem('me_cv_n');if(cn)document.getElementById('cv-hint').textContent='CV: '+cn;}
+
+/* TOOLS */
+function doConv(){const v=parseFloat(document.getElementById('cv-v').value),t=document.getElementById('cv-f').value,el=document.getElementById('cv-r');if(isNaN(v)){el.textContent='Enter a value above';el.className='rb rb-info';return;}const m={mmhg_kpa:[v*.133322,'kPa'],kpa_mmhg:[v/.133322,'mmHg'],mmhg_cmh2o:[v*1.35951,'cmH2O'],cmh2o_mmhg:[v/1.35951,'mmHg'],kpa_cmh2o:[v*10.1972,'cmH2O'],c_f:[v*9/5+32,'°F'],f_c:[(v-32)*5/9,'°C'],c_k:[v+273.15,'K'],lmin_mls:[v*1000/60,'mL/s'],mls_lmin:[v*60/1000,'L/min']};const[r,u]=m[t]||[null,''];el.textContent=r!=null?`${r.toFixed(3)} ${u}`:'—';el.className='rb rb-info';}
+function calcVent(){const sex=document.getElementById('vt-sex').value,h=parseFloat(document.getElementById('vt-h').value),el=document.getElementById('vt-r');if(isNaN(h)||h<100){el.textContent='Enter height above';el.className='rb rb-def';return;}const ibw=sex==='m'?50+.91*(h-152.4):45.5+.91*(h-152.4);el.innerHTML=`IBW: ${ibw.toFixed(1)} kg<br>Tidal volume (6–8 mL/kg): <b>${(ibw*6).toFixed(0)}–${(ibw*8).toFixed(0)} mL</b><br>RR: 12–20 /min &nbsp;|&nbsp; PEEP: 5–10 cmH2O<br>FiO2: start 40–60% → titrate to SpO2 ≥92%<br>Plateau pressure target: &lt;30 cmH2O`;el.className='rb rb-ok';}
+function calcRisk(){const s=parseInt(document.getElementById('rk-s').value),p=parseInt(document.getElementById('rk-p').value),el=document.getElementById('rk-r');if(!s||!p){el.className='rb rb-def';el.textContent='';return;}const sc=s*p;if(sc<=4){el.className='rb rb-ok';el.textContent=`Score ${sc} — LOW. Acceptable, document and monitor.`;}else if(sc<=9){el.className='rb rb-warn';el.textContent=`Score ${sc} — MEDIUM. ALARP required.`;}else if(sc<=15){el.className='rb rb-bad';el.textContent=`Score ${sc} — HIGH. Mitigation mandatory.`;}else{el.className='rb rb-bad';el.textContent=`Score ${sc} — CRITICAL. Unacceptable — redesign or eliminate hazard.`;}}
+function calcBMI(){const w=parseFloat(document.getElementById('bmi-w').value),h=parseFloat(document.getElementById('bmi-h').value),el=document.getElementById('bmi-r');if(!w||!h){el.textContent='Enter weight and height';el.className='rb rb-def';return;}const bmi=w/((h/100)**2),bsa=Math.sqrt(h*w/3600),cat=bmi<18.5?'Underweight':bmi<25?'Normal':bmi<30?'Overweight':'Obese';el.textContent=`BMI: ${bmi.toFixed(1)} (${cat})  |  BSA: ${bsa.toFixed(2)} m²`;el.className='rb rb-info';}
+function checkLeak(){const lt=document.getElementById('lk-t').value,v=parseFloat(document.getElementById('lk-v').value),el=document.getElementById('lk-r');if(!lt||isNaN(v)){el.className='rb rb-def';el.textContent='';return;}const lim=parseInt(lt);if(v<=lim){el.className='rb rb-ok';el.textContent=`PASS — ${v} µA ≤ ${lim} µA`;}else{el.className='rb rb-bad';el.textContent=`FAIL — ${v} µA exceeds ${lim} µA. Remove from service.`;}}
+function calcDrug(){const d=parseFloat(document.getElementById('dr-d').value),w=parseFloat(document.getElementById('dr-w').value),c=parseFloat(document.getElementById('dr-c').value),el=document.getElementById('dr-r');if(!d||!w||!c){el.textContent='Enter values above';el.className='rb rb-def';return;}el.textContent=`Rate: ${(d*w*60/(c*1000)).toFixed(2)} mL/hr`;el.className='rb rb-info';}
+function calcOhm(){const V=parseFloat(document.getElementById('oh-v').value)||null,I=parseFloat(document.getElementById('oh-i').value)||null,R=parseFloat(document.getElementById('oh-r').value)||null,P=parseFloat(document.getElementById('oh-p').value)||null,el=document.getElementById('oh-res');let res=[];if(V&&I)res.push(`R=${(V/I).toFixed(2)}Ω`,`P=${(V*I).toFixed(2)}W`);else if(V&&R)res.push(`I=${(V/R).toFixed(4)}A`,`P=${(V*V/R).toFixed(2)}W`);else if(I&&R)res.push(`V=${(I*R).toFixed(2)}V`,`P=${(I*I*R).toFixed(2)}W`);else if(P&&R)res.push(`V=${Math.sqrt(P*R).toFixed(2)}V`,`I=${Math.sqrt(P/R).toFixed(4)}A`);else if(P&&V)res.push(`I=${(P/V).toFixed(4)}A`,`R=${(V*V/P).toFixed(2)}Ω`);else if(P&&I)res.push(`V=${(P/I).toFixed(2)}V`,`R=${(P/(I*I)).toFixed(2)}Ω`);if(res.length){el.textContent=res.join('  |  ');el.className='rb rb-info';}else{el.textContent='Enter any two values';el.className='rb rb-def';}}
+function checkImp(){const lim=parseFloat(document.getElementById('im-t').value),v=parseFloat(document.getElementById('im-v').value),el=document.getElementById('im-r');if(!lim||isNaN(v)){el.className='rb rb-def';el.textContent='';return;}if(v<=lim){el.className='rb rb-ok';el.textContent=`PASS — ${v} kΩ ≤ ${lim} kΩ`;}else{el.className='rb rb-bad';el.textContent=`HIGH — ${v} kΩ > ${lim} kΩ. Re-prep electrode site.`;}}
+
+/* DEVICES */
+const DD=[{id:1,icon:"❤️",name:"ECG Machine (12-lead)",deviceClass:"IIa",category:"Monitoring",principle:"Measures electrical activity of the heart via 10 electrodes. Each pair forms a lead viewing the heart from a different angle.",params:[["Heart rate (normal)","60–100 bpm"],["PR interval","120–200 ms"],["QRS duration","< 120 ms"],["QT interval","< 440 ms (men)"],["Amplitude accuracy","±5% or ±40 µV"]],standards:["IEC 60601-2-25","IEC 60601-1"],alarms:["Lead-off / electrode disconnect","Motion artifact","Arrhythmia detection"],maintenance:[["Daily","Electrode & cable check"],["Weekly","Cable integrity"],["Annual","IEC 62353 safety + calibration"]],watchout:"Limb lead reversal (LA/RA) mimics dextrocardia — most common setup error. Motion artifact mimics AF. Always prep skin to <5 kΩ."},
+{id:2,icon:"🫁",name:"Mechanical Ventilator",deviceClass:"III",category:"Life support",principle:"Delivers positive-pressure breaths. Modes: VC, PC, SIMV, CPAP, BiPAP. Drive: piston, turbine, or compressed gas.",params:[["Tidal volume","6–8 mL/kg IBW"],["Respiratory rate","12–20 /min"],["PEEP","5–10 cmH2O"],["FiO2","21–100%"],["Peak inspiratory pressure","< 35 cmH2O"]],standards:["ISO 80601-2-12","IEC 60601-1"],alarms:["High/low airway pressure","Apnea/disconnect","Low minute volume","FiO2 deviation"],maintenance:[["Per use","Circuit check, leak test"],["Weekly","Filter replacement"],["Annual","Flow/pressure accuracy, electrical safety"]],watchout:"Always leak test before patient connection. Low-pressure = disconnect. Class III life-critical device."},
+{id:3,icon:"🩸",name:"Pulse Oximeter (SpO2)",deviceClass:"IIa",category:"Monitoring",principle:"Red (660 nm) + IR (940 nm) light differentiates HbO2 from Hb via photoplethysmography.",params:[["Normal SpO2","95–100%"],["Hypoxaemia","< 90%"],["Accuracy","±2% (70–100%)"],["Wavelengths","660 nm + 940 nm"],["Perfusion index","> 0.3%"]],standards:["IEC 60601-2-61","ISO 9919"],alarms:["Low SpO2","Low perfusion","Probe-off"],maintenance:[["Per patient","Clean probe"],["Every 2–4 hr","Pressure injury check"],["Annual","Accuracy with simulator"]],watchout:"CO poisoning → falsely NORMAL SpO2. Dark nail polish → falsely low. Motion artifact = most common false alarm."},
+{id:4,icon:"💉",name:"Infusion Pump",deviceClass:"IIb",category:"Drug delivery",principle:"Peristaltic or cassette mechanism delivers precise IV volumes at a programmed rate.",params:[["Flow rate accuracy","±5%"],["Range","0.1–1200 mL/hr"],["Occlusion pressure","300–900 mmHg settable"],["KVO rate","1–5 mL/hr"]],standards:["IEC 60601-2-24","ISO 13485"],alarms:["Occlusion","Air-in-line","Infusion complete","Free flow","Door open"],maintenance:[["Per use","Air purge, free-flow check"],["Annual","Flow accuracy, occlusion alarm, safety"]],watchout:"Free-flow is the most dangerous failure — gravity bolus can be lethal. Always use anti-free-flow sets."},
+{id:5,icon:"🔋",name:"Defibrillator / AED",deviceClass:"III",category:"Life support",principle:"High-energy biphasic shock depolarises myocardium allowing SA node to re-establish rhythm.",params:[["Biphasic energy (1st)","120–200 J"],["Monophasic","360 J"],["Charge time","< 10 s"],["Sync accuracy","±10 ms"]],standards:["IEC 60601-2-4","AAMI DF80"],alarms:["Low battery","Pad fault","Self-test failure"],maintenance:[["Daily","Self-test, battery, pads expiry"],["Monthly","Test shock into load"],["Annual","Energy accuracy, electrical safety"]],watchout:"Shout 'stand clear' before discharge. Pads ≥8 cm from pacemaker. Sync mode required for cardioversion."},
+{id:6,icon:"🩺",name:"NIBP Monitor",deviceClass:"IIa",category:"Monitoring",principle:"Oscillometric: cuff inflates then deflates; arterial wall oscillations determine MAP, SBP, DBP algorithmically.",params:[["Normal BP","< 120/80 mmHg"],["MAP","(SBP + 2×DBP) / 3"],["Cuff coverage","80% of arm"],["Accuracy","±5 mmHg (ISO 81060-2)"]],standards:["IEC 60601-2-30","ISO 81060-2"],alarms:["Overpressure","Weak pulse","Timeout"],maintenance:[["Per use","Cuff condition"],["Annual","Pressure calibration, leak test"]],watchout:"Wrong cuff size is #1 error: too small → HIGH, too large → LOW. AF patients give unreliable readings."},
+{id:7,icon:"🌡️",name:"Temperature Monitor",deviceClass:"IIa",category:"Monitoring",principle:"NTC thermistors or thermocouples measure resistance/EMF changes proportional to temperature.",params:[["Normal core","36.5–37.5°C"],["Hyperthermia","> 38.3°C"],["Hypothermia","< 35.0°C"],["Accuracy","±0.1°C core"]],standards:["IEC 60601-2-56","ASTM E1112"],alarms:["High/low threshold","Probe disconnect"],maintenance:[["Per patient","Disposable covers"],["Annual","NIST-traceable calibration"]],watchout:"Tympanic angle-sensitive: can read 1°C low. Axillary underestimates core by ~0.5°C."},
+{id:8,icon:"🧠",name:"EEG Machine",deviceClass:"IIa",category:"Neurodiagnostics",principle:"Records cortical potentials via 10–20 system scalp electrodes. Amplified ×10,000–100,000, filtered, digitised.",params:[["Amplitude","10–100 µV"],["Delta","0.5–4 Hz"],["Alpha","8–13 Hz"],["Beta","13–30 Hz"],["Electrode impedance","< 5 kΩ"]],standards:["IEC 60601-2-26","IFCN guidelines"],alarms:["Impedance > 5 kΩ","Mains interference","Saturation"],maintenance:[["Per use","Impedance check, gel"],["Annual","Gain, CMRR >100 dB, noise floor"]],watchout:"High impedance = dominant noise. EMG artifact mimics high-frequency activity. Gel bridges short-circuits channels."},
+{id:9,icon:"💊",name:"Syringe Driver / PCA",deviceClass:"IIb",category:"Drug delivery",principle:"Stepper motor advances plunger at programmed rate. PCA: patient triggers bolus within lockout interval.",params:[["Flow accuracy","±3–5%"],["Bolus lockout","5–30 min typical"],["Occlusion detection","Pressure-based"]],standards:["IEC 60601-2-24","ISO 13485"],alarms:["Occlusion","Syringe empty","Size mismatch","Motor stall"],maintenance:[["Per use","Confirm syringe size, tamper seal"],["Annual","Rate accuracy, alarm function"]],watchout:"Syringe size mismatch is most dangerous — pump calculates flow from declared diameter. Always physically confirm. Independent double-check mandatory."},
+{id:10,icon:"📡",name:"Patient Monitor (multiparameter)",deviceClass:"IIb",category:"Monitoring",principle:"Integrates ECG, SpO2, NIBP, temp, and respiration (thoracic impedance via ECG leads) into one display.",params:[["ECG sampling","500–1000 Hz"],["SpO2 sampling","60–100 Hz"],["Display refresh","≥25 Hz"],["Storage","24–72 hrs"]],standards:["IEC 60601-1","IEC 60601-1-8 (alarms)"],alarms:["Per-parameter thresholds","Central station loss","Low battery","Sensor fault"],maintenance:[["Daily","Visual check, alarm test"],["Annual","Full calibration, electrical safety, network"]],watchout:"Alarm fatigue: >90% of alarms are clinically irrelevant. Always personalise limits. Never leave factory defaults."}];
+let devs=[],curDev=null,editDev=null;
+function loadDevs(){try{const s=localStorage.getItem('me_devs4');devs=s?JSON.parse(s):JSON.parse(JSON.stringify(DD));}catch(e){devs=JSON.parse(JSON.stringify(DD));}}
+function saveDevs(){try{localStorage.setItem('me_devs4',JSON.stringify(devs));}catch(e){}}
+function updateDCount(){document.getElementById('dcount').textContent=devs.length+' devices';}
+function filterDevs(){renderDevList(document.getElementById('dsearch').value);}
+function renderDevList(f=''){
+  const el=document.getElementById('dlist'),cats={};
+  devs.forEach(d=>{if(f&&!d.name.toLowerCase().includes(f.toLowerCase())&&!d.category.toLowerCase().includes(f.toLowerCase()))return;if(!cats[d.category])cats[d.category]=[];cats[d.category].push(d);});
+  let h='';Object.keys(cats).sort().forEach(c=>{h+=`<div class="clbl">${c}</div>`;cats[c].forEach(d=>{h+=`<div class="ditem ${d.id===curDev?'active':''}" onclick="showDev(${d.id})"><span class="di">${d.icon}</span><span class="dn">${d.name}</span><span class="dc dc${d.deviceClass}">${d.deviceClass}</span></div>`;});});
+  if(!h)h='<div style="padding:12px;font-size:12px;color:var(--text3);text-align:center">No devices found</div>';
+  el.innerHTML=h;
+}
+function showDev(id){curDev=id;const d=devs.find(x=>x.id===id);if(!d)return;document.querySelector('.dw').style.display='none';const det=document.getElementById('ddet');det.classList.add('vis');const stds=d.standards.map(s=>`<span class="dbg bgs">${s}</span>`).join(' ');const params=d.params.map(([k,v])=>`<li><span class="pk">${k}</span><span>${v}</span></li>`).join('');const alarms=d.alarms.map(a=>`<li>${a}</li>`).join('');const maint=d.maintenance.map(([f,t])=>`<li><span class="mf">${f}</span><span>${t}</span></li>`).join('');const ab=isAdmin?`<div class="dda"><button class="be" onclick="openDevModal(${d.id})">Edit</button><button class="bdl" onclick="deleteDev(${d.id})">Delete</button></div>`:'';det.innerHTML=`<div class="ddh"><div class="ddic">${d.icon}</div><div style="flex:1"><div class="ddt">${d.name}</div><div style="margin-top:3px"><span class="dbg bg${d.deviceClass}">Class ${d.deviceClass}</span><span class="dbg bgs">${d.category}</span>${stds}</div></div>${ab}</div><div class="ig"><div class="ic full ok"><div class="icl">Working principle</div><div class="icv">${d.principle}</div></div><div class="ic"><div class="icl">Key parameters</div><ul class="pl">${params}</ul></div><div class="ic warn"><div class="icl">Critical alarms</div><ul class="al">${alarms}</ul></div><div class="ic full"><div class="icl">Maintenance</div><ul class="ml2">${maint}</ul></div><div class="ic full danger"><div class="icl">Watch out for</div><div class="icv">${d.watchout}</div></div></div>`;renderDevList(document.getElementById('dsearch').value);}
+function openDevModal(id=null){if(!isAdmin){alert('Admin access required.');return;}editDev=id;const d=id?devs.find(x=>x.id===id):null;document.getElementById('dev-mt').textContent=d?'Edit device':'Add device';['nm','ic','ca','pr','st','wo'].forEach(k=>document.getElementById('f-'+k).value=d?{nm:d.name,ic:d.icon,ca:d.category,pr:d.principle,st:d.standards.join(', '),wo:d.watchout}[k]:'');document.getElementById('f-cl').value=d?d.deviceClass:'IIa';document.getElementById('f-pa').value=d?d.params.map(([k,v])=>`${k}: ${v}`).join('\n'):'';document.getElementById('f-al').value=d?d.alarms.join('\n'):'';document.getElementById('f-ma').value=d?d.maintenance.map(([f,t])=>`${f}: ${t}`).join('\n'):'';document.getElementById('dev-ov').classList.add('open');}
+function closeDevOv(){document.getElementById('dev-ov').classList.remove('open');editDev=null;}
+function saveDev(){const nm=document.getElementById('f-nm').value.trim();if(!nm){alert('Name required.');return;}const pl=s=>s.split('\n').filter(l=>l.trim()).map(l=>{const i=l.indexOf(':');return i>-1?[l.slice(0,i).trim(),l.slice(i+1).trim()]:[l.trim(),''];});const d={id:editDev||(devs.length?Math.max(...devs.map(x=>x.id))+1:1),icon:document.getElementById('f-ic').value||'🔬',name:nm,deviceClass:document.getElementById('f-cl').value,category:document.getElementById('f-ca').value||'General',principle:document.getElementById('f-pr').value,params:pl(document.getElementById('f-pa').value),standards:document.getElementById('f-st').value.split(',').map(s=>s.trim()).filter(Boolean),alarms:document.getElementById('f-al').value.split('\n').map(s=>s.trim()).filter(Boolean),maintenance:pl(document.getElementById('f-ma').value),watchout:document.getElementById('f-wo').value};if(editDev){const i=devs.findIndex(x=>x.id===editDev);devs[i]=d;}else devs.push(d);saveDevs();closeDevOv();renderDevList();updateDCount();showDev(d.id);}
+function deleteDev(id){if(!isAdmin)return;if(!confirm('Delete device?'))return;devs=devs.filter(x=>x.id!==id);saveDevs();curDev=null;document.querySelector('.dw').style.display='';document.getElementById('ddet').classList.remove('vis');renderDevList();updateDCount();}
+
+/* PROJECTS */
+const DP2=[{id:1,icon:'🔬',title:'Your thesis title here',tag:'Final year thesis',desc:'Replace with your thesis description — the problem, what you built, and the key result.',link:''},{id:2,icon:'🏥',title:'Biomedical device maintenance',tag:'Internship',desc:'Maintenance and acceptance testing of clinical devices including patient monitors, infusion pumps, and ventilators.',link:''},{id:3,icon:'💻',title:'MedEng Reference Tool',tag:'Personal project',desc:'Full medical device reference web app with 10 devices, 8 engineering calculators, learning journal, and certifications tracker. Hosted on GitHub Pages.',link:'https://github.com/sidimuhammed/medengref'}];
+let projs=[],editProj=null;
+function loadProjs(){try{const s=localStorage.getItem('me_projs2');projs=s?JSON.parse(s):JSON.parse(JSON.stringify(DP2));}catch(e){projs=JSON.parse(JSON.stringify(DP2));}}
+function saveProjs(){try{localStorage.setItem('me_projs2',JSON.stringify(projs));}catch(e){}}
+function renderProj(){const g=document.getElementById('prg');let h=projs.map(p=>`<div class="prc"><div class="pri">${p.icon||'🔬'}</div><div class="prb"><span class="prtg">${p.tag}</span><div class="prt">${p.title}</div><div class="prd">${p.desc}</div>${p.link?`<a href="${p.link}" target="_blank" style="font-size:11px;color:var(--a2);margin-top:5px;display:inline-block">View →</a>`:''} ${isAdmin?`<div style="display:flex;gap:5px;margin-top:8px"><button class="be" onclick="openProjOv(${p.id})">Edit</button><button class="bdl" onclick="delProj(${p.id})">Delete</button></div>`:''}</div></div>`).join('');if(isAdmin)h+=`<div class="pradd" onclick="openProjOv()"><span style="font-size:22px">+</span><span>Add project</span></div>`;g.innerHTML=h;}
+function openProjOv(id=null){if(!isAdmin)return;editProj=id;const p=id?projs.find(x=>x.id===id):null;document.getElementById('proj-mt').textContent=p?'Edit project':'Add project';document.getElementById('pj-t').value=p?p.title:'';document.getElementById('pj-tag').value=p?p.tag:'';document.getElementById('pj-ic').value=p?p.icon:'🔬';document.getElementById('pj-d').value=p?p.desc:'';document.getElementById('pj-l').value=p?p.link:'';document.getElementById('proj-ov').classList.add('open');}
+function closeProjOv(){document.getElementById('proj-ov').classList.remove('open');editProj=null;}
+function saveProj(){const t=document.getElementById('pj-t').value.trim();if(!t){alert('Title required.');return;}const p={id:editProj||(projs.length?Math.max(...projs.map(x=>x.id))+1:1),title:t,tag:document.getElementById('pj-tag').value||'Project',icon:document.getElementById('pj-ic').value||'🔬',desc:document.getElementById('pj-d').value,link:document.getElementById('pj-l').value};if(editProj){const i=projs.findIndex(x=>x.id===editProj);projs[i]=p;}else projs.push(p);saveProjs();closeProjOv();renderProj();}
+function delProj(id){if(!isAdmin)return;if(!confirm('Delete project?'))return;projs=projs.filter(x=>x.id!==id);saveProjs();renderProj();}
+
+/* JOURNAL */
+let notes=[],editNote=null;
+function loadNotes(){try{const s=localStorage.getItem('me_notes2');notes=s?JSON.parse(s):[];}catch(e){notes=[];}}
+function saveNotes(){try{localStorage.setItem('me_notes2',JSON.stringify(notes));}catch(e){}}
+function renderJournal(){const g=document.getElementById('jg'),f=document.getElementById('nfilter').value,filtered=f?notes.filter(n=>n.cat===f):notes;if(!filtered.length){g.innerHTML=`<div class="empty"><div class="empty-icon">✍️</div><p style="font-size:13px;font-weight:500;color:var(--text2);margin-bottom:4px">No notes yet</p><p style="font-size:12px">Log in as admin to start your learning journal.</p></div>`;return;}g.innerHTML=[...filtered].reverse().map(n=>`<div class="jc"><div class="jct"><div class="jcm"><div class="jcti">${n.title}<span class="jctg">${n.cat}</span></div><div class="jcd">${n.date}</div></div>${isAdmin?`<div style="display:flex;gap:5px"><button class="be" onclick="openNoteModal(${n.id})">Edit</button><button class="bdl" onclick="delNote(${n.id})">Delete</button></div>`:''}</div><div class="jcb">${n.body}</div></div>`).join('');}
+function openNoteModal(id=null){if(!isAdmin)return;editNote=id;const n=id?notes.find(x=>x.id===id):null;document.getElementById('note-mt').textContent=n?'Edit note':'Add note';document.getElementById('n-t').value=n?n.title:'';document.getElementById('n-c').value=n?n.cat:'Device';document.getElementById('n-b').value=n?n.body:'';document.getElementById('note-ov').classList.add('open');}
+function closeNoteOv(){document.getElementById('note-ov').classList.remove('open');editNote=null;}
+function saveNote(){const t=document.getElementById('n-t').value.trim(),b=document.getElementById('n-b').value.trim();if(!t||!b){alert('Title and content required.');return;}const d=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});const n={id:editNote||(notes.length?Math.max(...notes.map(x=>x.id))+1:1),title:t,cat:document.getElementById('n-c').value,body:b,date:d};if(editNote){const i=notes.findIndex(x=>x.id===editNote);notes[i]=n;}else notes.push(n);saveNotes();closeNoteOv();renderJournal();}
+function delNote(id){if(!isAdmin)return;if(!confirm('Delete note?'))return;notes=notes.filter(x=>x.id!==id);saveNotes();renderJournal();}
+
+/* CERTS */
+const DC=[{id:1,name:'B.Sc. Medical Engineering',issuer:'Your University',status:'done',date:'June 2025',file:null},{id:2,name:'ISO 13485:2016 Awareness',issuer:'Add issuer',status:'plan',date:'Target: 2025',file:null},{id:3,name:'IEC 62353 Electrical Safety',issuer:'Add issuer',status:'plan',date:'Target: 2025',file:null}];
+let certs=[],editCert=null;
+function loadCerts(){try{const s=localStorage.getItem('me_certs2');certs=s?JSON.parse(s):JSON.parse(JSON.stringify(DC));}catch(e){certs=JSON.parse(JSON.stringify(DC));}}
+function saveCerts(){try{localStorage.setItem('me_certs2',JSON.stringify(certs));}catch(e){}}
+function renderCerts(){const g=document.getElementById('ceg'),sl={done:'Completed',prog:'In progress',plan:'Planned'},sc={done:'csd',prog:'csp',plan:'csn'};let h=certs.map(c=>`<div class="cec"><div style="font-size:26px;margin-bottom:7px">🏅</div><div class="cen">${c.name}</div><div class="cei">${c.issuer}</div><span class="ces ${sc[c.status]}">${sl[c.status]}</span><div class="ced">${c.date}</div>${c.file?`<a class="cefl" href="${c.file}" download="${c.name}">📎 View certificate</a>`:''} ${isAdmin?`<div style="display:flex;gap:5px;margin-top:8px"><button class="be" onclick="openCertOv(${c.id})">Edit</button><button class="bdl" onclick="delCert(${c.id})">Delete</button></div>`:''}</div>`).join('');if(isAdmin)h+=`<div class="ceadd" onclick="openCertOv()"><span style="font-size:22px">+</span><span>Add certification</span></div>`;g.innerHTML=h;}
+function openCertOv(id=null){if(!isAdmin)return;editCert=id;const c=id?certs.find(x=>x.id===id):null;document.getElementById('cert-mt').textContent=c?'Edit':'Add certification';document.getElementById('c-n').value=c?c.name:'';document.getElementById('c-i').value=c?c.issuer:'';document.getElementById('c-s').value=c?c.status:'done';document.getElementById('c-d').value=c?c.date:'';document.getElementById('c-f').value='';document.getElementById('cert-ov').classList.add('open');}
+function closeCertOv(){document.getElementById('cert-ov').classList.remove('open');editCert=null;}
+function saveCert(){const nm=document.getElementById('c-n').value.trim();if(!nm){alert('Name required.');return;}const fl=document.getElementById('c-f');const fin=fd=>{const c={id:editCert||(certs.length?Math.max(...certs.map(x=>x.id))+1:1),name:nm,issuer:document.getElementById('c-i').value,status:document.getElementById('c-s').value,date:document.getElementById('c-d').value,file:fd||null};if(editCert){const i=certs.findIndex(x=>x.id===editCert);if(!c.file&&certs[i].file)c.file=certs[i].file;certs[i]=c;}else certs.push(c);saveCerts();closeCertOv();renderCerts();};if(fl.files[0]){const r=new FileReader();r.onload=ev=>fin(ev.target.result);r.readAsDataURL(fl.files[0]);}else fin(null);}
+function delCert(id){if(!isAdmin)return;if(!confirm('Delete?'))return;certs=certs.filter(x=>x.id!==id);saveCerts();renderCerts();}
+
+/* CLOSE ON OUTSIDE CLICK */
+['dev-ov','note-ov','proj-ov','cert-ov','creds-ov'].forEach(id=>document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('open');}));
+
+/* FOOTER */
+document.getElementById('footer').textContent=`© ${new Date().getFullYear()} Sidi Mohamed Sidi el Mokhtar · Medical Engineer · github.com/sidimuhammed`;
+
+/* INIT */
+loadDevs();loadProjs();loadNotes();loadCerts();loadSaved();
+</script>
+</body>
+</html>
